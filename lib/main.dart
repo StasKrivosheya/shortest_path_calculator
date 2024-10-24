@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'src/blocs/game_config/game_config_bloc.dart';
 import 'src/repositories/game_config_repository.dart';
 import 'src/pages/home_page.dart';
 

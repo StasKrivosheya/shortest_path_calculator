@@ -50,6 +50,7 @@ class _HomePageLayout extends StatelessWidget {
                 Expanded(child: _ApiLinkInput()),
               ],
             ),
+            _ErrorIndicator(),
             const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
@@ -61,6 +62,31 @@ class _HomePageLayout extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ErrorIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<GameConfigBloc, GameConfigState>(
+      buildWhen: (previous, current) =>
+          previous.pageStatus != current.pageStatus,
+      builder: (context, state) {
+        return Visibility(
+          visible: state.pageStatus == HomePageStatus.error,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                state.errorMessage,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -78,15 +104,14 @@ class _StartButton extends StatelessWidget {
           width: 2.5,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
-        backgroundColor:
-        Theme.of(context).colorScheme.primaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      onPressed: () => context.read<GameConfigBloc>().add(GetGameConfigsEvent()),
+      onPressed: () =>
+          context.read<GameConfigBloc>().add(GetGameConfigsEvent()),
       child: Text(
         'Start counting process',
-        style: TextStyle(
-            color:
-            Theme.of(context).colorScheme.onPrimaryContainer),
+        style:
+            TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),
       ),
     );
   }

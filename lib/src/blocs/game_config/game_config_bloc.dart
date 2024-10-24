@@ -46,7 +46,8 @@ class GameConfigBloc extends Bloc<GameConfigEvent, GameConfigState> {
   FutureOr<void> _onApiLinkInputChanged(
       ApiLinkInputChanged event, Emitter<GameConfigState> emit) {
     // TODO: validate input if necessary
-    emit(state.copyWith(apiLinkInput: event.apiLinkInput));
+    emit(state.copyWith(
+        apiLinkInput: event.apiLinkInput, pageStatus: HomePageStatus.initial));
   }
 }
 
@@ -56,6 +57,8 @@ String handleExceptionWithMessage(dynamic error) {
     return "It seems you've entered wrong address or you are not connected to the internet.";
   } else if (error is TimeoutException) {
     return "The request timed out. Ensure you have a stable internet connection";
+  } else if(error is ArgumentError) {
+    return "Wrong URI format";
   } else {
     return "An error occurred, please try again";
   }
