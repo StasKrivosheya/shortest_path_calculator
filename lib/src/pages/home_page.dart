@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shortest_path_calculator/src/blocs/game_config/game_config_bloc.dart';
+import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
 import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -23,7 +24,9 @@ class MyHomePage extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) => GameConfigBloc(
-            gameConfigRepository: context.read<GameConfigRepository>()),
+          gameConfigRepository: context.read<GameConfigRepository>(),
+          appSettings: context.read<AppSettings>(),
+        ),
         child: _HomePageLayout(),
       ),
     );
@@ -33,6 +36,7 @@ class MyHomePage extends StatelessWidget {
 class _HomePageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.read<GameConfigBloc>().add(LoadApiLinkFromSettingsEvent());
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15),

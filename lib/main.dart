@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
 
 import 'src/repositories/game_config_repository.dart';
 import 'src/pages/home_page.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -13,8 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => GameConfigRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => GameConfigRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => AppSettings()..init(),
+        ),
+      ],
       child: MaterialApp(
           title: 'Flutter Test Task',
           theme: ThemeData(

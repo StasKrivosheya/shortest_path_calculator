@@ -17,3 +17,8 @@ class GetGameConfigsEvent extends GameConfigEvent {
   @override
   List<Object?> get props => [];
 }
+
+class LoadApiLinkFromSettingsEvent extends GameConfigEvent {
+  @override
+  List<Object?> get props => [];
+}

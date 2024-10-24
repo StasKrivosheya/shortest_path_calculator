@@ -4,9 +4,14 @@ import 'package:shortest_path_calculator/src/models/game_config_model.dart';
 import 'package:shortest_path_calculator/src/services/data_provider.dart';
 import 'package:shortest_path_calculator/src/utils/json_mapper.dart';
 
-class GameConfigRepository {
+abstract interface class IGameConfigRepository {
+  Future<List<GameConfigModel>> getGameConfigs({required String endpoint});
+}
+
+class GameConfigRepository implements IGameConfigRepository {
   final DataProvider _dataProvider = DataProvider();
 
+  @override
   Future<List<GameConfigModel>> getGameConfigs(
       {required String endpoint}) async {
     try {
