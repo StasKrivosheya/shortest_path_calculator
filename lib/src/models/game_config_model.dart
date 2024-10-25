@@ -1,8 +1,10 @@
+import 'coordinates_model.dart';
+
 class GameConfigModel {
   final String id;
   final List<String> field;
-  final CoordinatesModel start;
-  final CoordinatesModel end;
+  final Coordinates start;
+  final Coordinates end;
 
   GameConfigModel({
     required this.id,
@@ -15,8 +17,8 @@ class GameConfigModel {
     return GameConfigModel(
       id: json['id'] as String,
       field: List<String>.from(json['field']),
-      start: CoordinatesModel.fromJson(json['start']),
-      end: CoordinatesModel.fromJson(json['end']),
+      start: Coordinates.fromJson(json['start']),
+      end: Coordinates.fromJson(json['end']),
     );
   }
 
@@ -26,30 +28,6 @@ class GameConfigModel {
       'field': field,
       'start': start.toJson(),
       'end': end.toJson(),
-    };
-  }
-}
-
-class CoordinatesModel {
-  final int x;
-  final int y;
-
-  CoordinatesModel({
-    required this.x,
-    required this.y,
-  });
-
-  factory CoordinatesModel.fromJson(Map<String, dynamic> json) {
-    return CoordinatesModel(
-      x: json['x'] as int,
-      y: json['y'] as int,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'x': x,
-      'y': y,
     };
   }
 }
