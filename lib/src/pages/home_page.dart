@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shortest_path_calculator/src/blocs/game_config/game_config_bloc.dart';
+import 'package:shortest_path_calculator/src/blocs/home_page/home_page_bloc.dart';
 import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
 import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
 
@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (context) => GameConfigBloc(
+        create: (context) => HomePageBloc(
           gameConfigRepository: context.read<GameConfigRepository>(),
           appSettings: context.read<AppSettings>(),
         ),
@@ -36,7 +36,7 @@ class MyHomePage extends StatelessWidget {
 class _HomePageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read<GameConfigBloc>().add(LoadApiLinkFromSettingsEvent());
+    context.read<HomePageBloc>().add(LoadApiLinkFromSettingsEvent());
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15),
@@ -73,7 +73,7 @@ class _HomePageLayout extends StatelessWidget {
 class _ErrorIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GameConfigBloc, GameConfigState>(
+    return BlocBuilder<HomePageBloc, HomePageState>(
       buildWhen: (previous, current) =>
           previous.pageStatus != current.pageStatus,
       builder: (context, state) {
@@ -126,7 +126,7 @@ class _ApiLinkInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GameConfigBloc, GameConfigState>(
+    return BlocBuilder<HomePageBloc, HomePageState>(
       buildWhen: (previous, current) =>
           previous.apiLinkInput != current.apiLinkInput,
       builder: (context, state) {
@@ -137,7 +137,7 @@ class _ApiLinkInput extends StatelessWidget {
 
         return TextField(
           onChanged: (input) => context
-              .read<GameConfigBloc>()
+              .read<HomePageBloc>()
               .add(ApiLinkInputChanged(apiLinkInput: input)),
           controller: _inputController,
           decoration: InputDecoration(
