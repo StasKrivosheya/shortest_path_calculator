@@ -6,7 +6,6 @@ import 'src/repositories/game_config_repository.dart';
 import 'src/pages/home_page.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -25,14 +24,15 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter Test Task',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromRGBO(34, 150, 243, 100),
-            ),
-            useMaterial3: true,
+        title: 'Flutter Test Task',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(34, 150, 243, 100),
           ),
-          home: const MyHomePage()),
+          useMaterial3: true,
+        ),
+        home: const HomePage(),
+      ),
     );
   }
 }

@@ -22,5 +22,5 @@ class Cell {
   int get hashCode => coordinates.x.hashCode ^ coordinates.y.hashCode;
 
   @override
-  String toString() => '(${coordinates.x}, ${coordinates.y})';
+  String toString() => coordinates.toString();
 }

@@ -20,4 +20,7 @@ class Coordinates {
       'y': y,
     };
   }
+
+  @override
+  String toString() => '($x, $y)';
 }
