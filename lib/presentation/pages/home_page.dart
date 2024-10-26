@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shortest_path_calculator/data/repositories/app_settings.dart';
 import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/presentation/widgets/custom_elevated_button.dart';
 
 import '../blocs/home_page/home_page_bloc.dart';
 import 'process_page.dart';
@@ -138,28 +139,13 @@ class _StartButton extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.pageStatus != current.pageStatus,
       builder: (context, state) {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            side: BorderSide(
-              width: 2.5,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          ),
+        return CustomElevatedButton(
           onPressed: state.pageStatus == HomePageStatus.loading
               ? null
               : () {
                   context.read<HomePageBloc>().add(GetGameConfigsEvent());
                 },
-          child: Text(
-            'Start counting process',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimaryContainer),
-          ),
+          text: 'Start counting process',
         );
       },
     );

@@ -47,6 +47,7 @@ class ProcessPageBloc extends Bloc<ProcessPageEvent, ProcessPageState> {
 
   FutureOr<void> _onVerificationRequested(
       VerificationRequested event, Emitter<ProcessPageState> emit) async {
+    emit(state.copyWith(pageStatus: ProcessPageStatus.sending));
     var results =
         await _gameConfigRepository.sendResults(event.processingResults);
 

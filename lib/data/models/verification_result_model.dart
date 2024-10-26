@@ -7,17 +7,19 @@ class VerificationResultModel {
     required this.data,
   });
 
-  factory VerificationResultModel.fromRawJson(String str) => VerificationResultModel.fromJson(json.decode(str));
+  factory VerificationResultModel.fromRawJson(String str) =>
+      VerificationResultModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory VerificationResultModel.fromJson(Map<String, dynamic> json) => VerificationResultModel(
-    data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-  );
+  factory VerificationResultModel.fromJson(Map<String, dynamic> json) =>
+      VerificationResultModel(
+        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }
 
 class Data {
@@ -34,12 +36,12 @@ class Data {
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    correct: json["correct"],
-  );
+        id: json["id"],
+        correct: json["correct"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "correct": correct,
-  };
+        "id": id,
+        "correct": correct,
+      };
 }

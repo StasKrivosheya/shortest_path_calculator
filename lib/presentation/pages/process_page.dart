@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shortest_path_calculator/data/models/game_config_model.dart';
 import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
 import 'package:shortest_path_calculator/domain/services/game_processor.dart';
+import 'package:shortest_path_calculator/presentation/widgets/custom_elevated_button.dart';
 
 import '../blocs/process_page/process_page_bloc.dart';
 import 'result_list_page.dart';
@@ -134,31 +135,15 @@ class _SendButton extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              side: BorderSide(
-                width: 2.5,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            onPressed: state.pageStatus == ProcessPageStatus.processing ||
-                    state.pageStatus == ProcessPageStatus.sending
-                ? null
-                : () {
-                    context.read<ProcessPageBloc>().add(VerificationRequested(
-                        processingResults: state.processingResults));
-                  },
-            child: Text(
-              'Send results to server',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer),
-            ),
-          ),
+          child: CustomElevatedButton(
+              onPressed: state.pageStatus == ProcessPageStatus.processing ||
+                      state.pageStatus == ProcessPageStatus.sending
+                  ? null
+                  : () {
+                      context.read<ProcessPageBloc>().add(VerificationRequested(
+                          processingResults: state.processingResults));
+                    },
+              text: 'Send results to server'),
         );
       },
     );

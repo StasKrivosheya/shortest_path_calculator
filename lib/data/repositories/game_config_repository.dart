@@ -17,7 +17,7 @@ abstract interface class IGameConfigRepository {
 
 class GameConfigRepository implements IGameConfigRepository {
   final ApiProvider _dataProvider = ApiProvider();
-  late final String _lastEndpoint;
+  late String _lastEndpoint;
 
   @override
   Future<List<GameConfigModel>> getGameConfigs(
