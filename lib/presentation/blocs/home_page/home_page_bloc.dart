@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
-import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
-import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
-import 'package:shortest_path_calculator/src/utils/error_messages.dart';
+import 'package:shortest_path_calculator/data/models/game_config_model.dart';
+import 'package:shortest_path_calculator/data/repositories/app_settings.dart';
+import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/utils/error_messages.dart';
 
 part 'home_page_event.dart';
 

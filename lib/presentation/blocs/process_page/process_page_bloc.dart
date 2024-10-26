@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shortest_path_calculator/src/extensions/model_converters.dart';
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
-import 'package:shortest_path_calculator/src/models/processing_result_model.dart';
-import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/data/models/game_config_model.dart';
+import 'package:shortest_path_calculator/data/models/processing_result_model.dart';
+import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/utils/extensions/model_converters.dart';
 
 part 'process_page_event.dart';
 
@@ -44,8 +44,10 @@ class ProcessPageBloc extends Bloc<ProcessPageEvent, ProcessPageState> {
     return Future.value(resultModels);
   }
 
-  FutureOr<void> _onVerificationRequested(VerificationRequested event, Emitter<ProcessPageState> emit) async {
-    var results = await _gameConfigRepository.sendResults(event.processingResults);
+  FutureOr<void> _onVerificationRequested(
+      VerificationRequested event, Emitter<ProcessPageState> emit) async {
+    var results =
+        await _gameConfigRepository.sendResults(event.processingResults);
 
     var resultsCorrect = true;
     for (var gamePath in results.data) {

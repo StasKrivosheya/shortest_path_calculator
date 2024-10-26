@@ -1,4 +1,4 @@
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
+import 'package:shortest_path_calculator/data/models/game_config_model.dart';
 
 class JsonMapper {
   static List<GameConfigModel> mapGameConfigs({dynamic decodedBody}) {

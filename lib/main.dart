@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
 
-import 'src/repositories/game_config_repository.dart';
-import 'src/pages/home_page.dart';
+import 'data/repositories/app_settings.dart';
+import 'data/repositories/game_config_repository.dart';
+import 'presentation/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());

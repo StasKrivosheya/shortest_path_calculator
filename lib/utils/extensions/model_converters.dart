@@ -1,6 +1,6 @@
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
-import 'package:shortest_path_calculator/src/models/grid_model.dart';
-import 'package:shortest_path_calculator/src/models/processing_result_model.dart';
+import 'package:shortest_path_calculator/data/models/game_config_model.dart';
+import 'package:shortest_path_calculator/data/models/grid_model.dart';
+import 'package:shortest_path_calculator/data/models/processing_result_model.dart';
 
 extension ToGrid on GameConfigModel {
   Grid toGrid() {

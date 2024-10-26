@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shortest_path_calculator/src/blocs/process_page/process_page_bloc.dart';
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
-import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/data/models/game_config_model.dart';
+import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
 
+import '../blocs/process_page/process_page_bloc.dart';
 import 'result_list_page.dart';
 
 class ProcessPage extends StatelessWidget {

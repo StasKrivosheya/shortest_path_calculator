@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shortest_path_calculator/src/blocs/home_page/home_page_bloc.dart';
-import 'package:shortest_path_calculator/src/pages/process_page.dart';
-import 'package:shortest_path_calculator/src/repositories/app_settings.dart';
-import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/data/repositories/app_settings.dart';
+import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
+
+import '../blocs/home_page/home_page_bloc.dart';
+import 'process_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

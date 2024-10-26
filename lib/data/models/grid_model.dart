@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:shortest_path_calculator/src/models/cell_model.dart';
-import 'package:shortest_path_calculator/src/models/coordinates_model.dart';
+import 'cell_model.dart';
+import 'coordinates_model.dart';
 
 class Grid {
   Grid({
@@ -22,8 +22,7 @@ class Grid {
   List<Cell>? _shortestPath;
 
   List<Cell>? get shortestPath {
-    _shortestPath ??=
-        _getShortestPath(_matrix[_start.y][_start.x], _matrix[_end.y][_end.x]);
+    _shortestPath ??= _getShortestPath(_matrix[_start.y][_start.x], _matrix[_end.y][_end.x]);
     return _shortestPath;
   }
 

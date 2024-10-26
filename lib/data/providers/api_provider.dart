@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 
-class DataProvider {
+class ApiProvider {
   Future<http.Response> getRequest({required String endpoint}) async {
     try {
       final response = await http.get(Uri.parse(endpoint));

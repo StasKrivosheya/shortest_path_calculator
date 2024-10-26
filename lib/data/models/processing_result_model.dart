@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:shortest_path_calculator/src/models/coordinates_model.dart';
+import 'coordinates_model.dart';
 
 class ProcessingResultModel {
   final String id;

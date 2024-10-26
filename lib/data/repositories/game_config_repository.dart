@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:shortest_path_calculator/src/models/game_config_model.dart';
-import 'package:shortest_path_calculator/src/models/processing_result_model.dart';
-import 'package:shortest_path_calculator/src/models/verification_result_model.dart';
-import 'package:shortest_path_calculator/src/services/data_provider.dart';
-import 'package:shortest_path_calculator/src/utils/json_mapper.dart';
+import 'package:shortest_path_calculator/utils/json_mapper.dart';
+
+import '../models/game_config_model.dart';
+import '../models/processing_result_model.dart';
+import '../models/verification_result_model.dart';
+import '../providers/api_provider.dart';
 
 abstract interface class IGameConfigRepository {
   Future<List<GameConfigModel>> getGameConfigs({required String endpoint});
@@ -15,7 +16,7 @@ abstract interface class IGameConfigRepository {
 }
 
 class GameConfigRepository implements IGameConfigRepository {
-  final DataProvider _dataProvider = DataProvider();
+  final ApiProvider _dataProvider = ApiProvider();
   late final String _lastEndpoint;
 
   @override
