@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shortest_path_calculator/src/blocs/process_page/process_page_bloc.dart';
 import 'package:shortest_path_calculator/src/models/game_config_model.dart';
+import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
 
 class ProcessPage extends StatelessWidget {
   const ProcessPage({super.key, required this.gameConfigs});
@@ -25,14 +27,26 @@ class ProcessPage extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
       ),
-      //body: BlocProvider(create: create),
+      body: BlocProvider(
+        create: (context) => ProcessPageBloc(
+          gameConfigRepository: context.read<GameConfigRepository>(),
+        ),
+        child: _ProgressPageLayout(gameConfigs: gameConfigs),
+      ),
     );
   }
 }
 
 class _ProgressPageLayout extends StatelessWidget {
+  final List<GameConfigModel> gameConfigs;
+
+  const _ProgressPageLayout({super.key, required this.gameConfigs});
+
   @override
   Widget build(BuildContext context) {
+    context
+        .read<ProcessPageBloc>()
+        .add(ProcessingRequested(gameConfigs: gameConfigs));
     return SafeArea(
       child: Placeholder(),
     );
