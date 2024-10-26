@@ -5,6 +5,7 @@ import 'package:shortest_path_calculator/src/models/coordinates_model.dart';
 
 class Grid {
   Grid({
+    required this.id,
     required List<String> rawField,
     required Coordinates start,
     required Coordinates end,
@@ -13,14 +14,17 @@ class Grid {
         _start = start,
         _end = end;
 
+  final String id;
   final List<List<Cell>> _matrix;
   final int _size;
   final Coordinates _start;
   final Coordinates _end;
+  List<Cell>? _shortestPath;
 
   List<Cell>? get shortestPath {
-    return _getShortestPath(
-        _matrix[_start.y][_start.x], _matrix[_end.y][_end.x]);
+    _shortestPath ??=
+        _getShortestPath(_matrix[_start.y][_start.x], _matrix[_end.y][_end.x]);
+    return _shortestPath;
   }
 
   static List<List<Cell>> _initMatrix(
@@ -93,8 +97,14 @@ class Grid {
       var current = path.last;
 
       if (current == end) {
-        for (var cell in path) {
-          cell.type = CellType.path;
+        // for (var cell in path) {
+        //   cell.type = CellType.path;
+        // }
+        final pathRange = (firstStepIndex: 1, lastStepIndex: path.length - 2);
+        for (var i = pathRange.firstStepIndex;
+            i <= pathRange.lastStepIndex;
+            i++) {
+          path[i].type = CellType.path;
         }
         return path;
       }

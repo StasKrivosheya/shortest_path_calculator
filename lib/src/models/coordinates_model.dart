@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Coordinates {
   final int x;
   final int y;
@@ -14,12 +16,12 @@ class Coordinates {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'x': x,
-      'y': y,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'x': x,
+        'y': y,
+      };
+
+  String toRawJson() => json.encode(toJson());
 
   @override
   String toString() => '($x, $y)';
