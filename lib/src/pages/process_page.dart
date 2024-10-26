@@ -47,8 +47,94 @@ class _ProgressPageLayout extends StatelessWidget {
     context
         .read<ProcessPageBloc>()
         .add(ProcessingRequested(gameConfigs: gameConfigs));
-    return SafeArea(
-      child: Placeholder(),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BlocBuilder<ProcessPageBloc, ProcessPageState>(
+                      buildWhen: (previous, current) =>
+                          previous.pageStatus != current.pageStatus,
+                      builder: (context, state) {
+                        final text = state.pageStatus ==
+                                ProcessPageStatus.processing
+                            ? 'Data processing is in progress.'
+                            : 'All calculations has finished, you can send your results to server.';
+                        return Text(
+                          text,
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center,
+                        );
+                      },
+                    ),
+                    // TODO: implement progress indicator
+                    // SizedBox(height: 20),
+                    // Text('%'),
+                    SizedBox(height: 30),
+                    BlocBuilder<ProcessPageBloc, ProcessPageState>(
+                      buildWhen: (previous, current) =>
+                          previous.pageStatus != current.pageStatus,
+                      builder: (context, state) {
+                        return Visibility(
+                            visible: state.pageStatus ==
+                                    ProcessPageStatus.processing ||
+                                state.pageStatus == ProcessPageStatus.sending,
+                            child: CircularProgressIndicator());
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+            _SendButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SendButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProcessPageBloc, ProcessPageState>(
+      buildWhen: (previous, current) =>
+          previous.pageStatus != current.pageStatus,
+      builder: (context, state) {
+        return SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                width: 2.5,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            ),
+            onPressed: state.pageStatus == ProcessPageStatus.processing ||
+                    state.pageStatus == ProcessPageStatus.sending
+                ? null
+                : () {
+                    context.read<ProcessPageBloc>().add(VerificationRequested(
+                        processingResults: state.processingResults));
+                  },
+            child: Text(
+              'Send results to server',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+        );
+      },
     );
   }
 }

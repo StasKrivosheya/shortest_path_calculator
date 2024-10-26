@@ -12,3 +12,12 @@ class ProcessingRequested extends ProcessPageEvent {
   @override
   List<Object?> get props => [gameConfigs];
 }
+
+class VerificationRequested extends ProcessPageEvent {
+  final List<ProcessingResultModel> processingResults;
+
+  const VerificationRequested({required this.processingResults});
+
+  @override
+  List<Object?> get props => [processingResults];
+}
