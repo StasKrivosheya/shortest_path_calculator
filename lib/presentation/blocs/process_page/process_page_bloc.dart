@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shortest_path_calculator/data/models/game_config_model.dart';
 import 'package:shortest_path_calculator/data/models/processing_result_model.dart';
 import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
-import 'package:shortest_path_calculator/utils/extensions/model_converters.dart';
+import 'package:shortest_path_calculator/domain/services/game_processor.dart';
 
 part 'process_page_event.dart';
 
@@ -13,9 +13,13 @@ part 'process_page_state.dart';
 
 class ProcessPageBloc extends Bloc<ProcessPageEvent, ProcessPageState> {
   final IGameConfigRepository _gameConfigRepository;
+  final IGameProcessorService _gameProcessorService;
 
-  ProcessPageBloc({required IGameConfigRepository gameConfigRepository})
-      : _gameConfigRepository = gameConfigRepository,
+  ProcessPageBloc({
+    required IGameConfigRepository gameConfigRepository,
+    required IGameProcessorService gameProcessorService,
+  })  : _gameConfigRepository = gameConfigRepository,
+        _gameProcessorService = gameProcessorService,
         super(ProcessPageState()) {
     on<ProcessingRequested>(_onProcessingRequested);
     on<VerificationRequested>(_onVerificationRequested);
@@ -36,10 +40,7 @@ class ProcessPageBloc extends Bloc<ProcessPageEvent, ProcessPageState> {
 
   Future<List<ProcessingResultModel>> _computeResults(
       List<GameConfigModel> gameConfigs) async {
-    var grids = [for (var gc in gameConfigs) gc.toGrid()];
-
-    // calculations are triggered in extension method
-    var resultModels = [for (var g in grids) g.toProcessingResult()];
+    var resultModels = _gameProcessorService.findShortestPaths(gameConfigs);
 
     return Future.value(resultModels);
   }

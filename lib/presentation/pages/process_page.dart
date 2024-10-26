@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shortest_path_calculator/data/models/game_config_model.dart';
 import 'package:shortest_path_calculator/data/repositories/game_config_repository.dart';
+import 'package:shortest_path_calculator/domain/services/game_processor.dart';
 
 import '../blocs/process_page/process_page_bloc.dart';
 import 'result_list_page.dart';
@@ -32,6 +33,7 @@ class ProcessPage extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ProcessPageBloc(
           gameConfigRepository: context.read<GameConfigRepository>(),
+          gameProcessorService: GameProcessorService(),
         ),
         child: BlocListener<ProcessPageBloc, ProcessPageState>(
           listenWhen: (previous, current) =>

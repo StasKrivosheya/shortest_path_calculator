@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'coordinates_model.dart';
+import 'grid_model.dart';
 
 class ProcessingResultModel {
   final String id;
   final Result result;
+  final GameGrid finalGameGrid;
 
   ProcessingResultModel({
     required this.id,
     required this.result,
+    required this.finalGameGrid
   });
 
   String toRawJson() => json.encode(toJson());
