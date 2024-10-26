@@ -8,4 +8,14 @@ class GameGrid {
 
   Cell operator [](({int x, int y}) coordinates) =>
       _fieldMatrix[coordinates.y][coordinates.x];
+
+  int get size => _fieldMatrix.length;
+
+  List<Cell> get asFlatList {
+    List<Cell> result = [];
+    for (var row in _fieldMatrix) {
+      result.addAll(row);
+    }
+    return result;
+  }
 }

@@ -52,7 +52,7 @@ class _ResultListPageLayout extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => PreviewPage(
                             processingResult: processingResults[index])));
-              }, // TODO add navigation
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 12,
