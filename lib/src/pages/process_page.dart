@@ -4,6 +4,8 @@ import 'package:shortest_path_calculator/src/blocs/process_page/process_page_blo
 import 'package:shortest_path_calculator/src/models/game_config_model.dart';
 import 'package:shortest_path_calculator/src/repositories/game_config_repository.dart';
 
+import 'result_list_page.dart';
+
 class ProcessPage extends StatelessWidget {
   const ProcessPage({super.key, required this.gameConfigs});
 
@@ -31,7 +33,23 @@ class ProcessPage extends StatelessWidget {
         create: (context) => ProcessPageBloc(
           gameConfigRepository: context.read<GameConfigRepository>(),
         ),
-        child: _ProgressPageLayout(gameConfigs: gameConfigs),
+        child: BlocListener<ProcessPageBloc, ProcessPageState>(
+          listenWhen: (previous, current) =>
+              previous.pageStatus != current.pageStatus,
+          listener: (context, state) {
+            if (state.pageStatus == ProcessPageStatus.success) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultListPage(
+                    processingResults: state.processingResults,
+                  ),
+                ),
+              );
+            }
+          },
+          child: _ProgressPageLayout(gameConfigs: gameConfigs),
+        ),
       ),
     );
   }
@@ -61,10 +79,16 @@ class _ProgressPageLayout extends StatelessWidget {
                       buildWhen: (previous, current) =>
                           previous.pageStatus != current.pageStatus,
                       builder: (context, state) {
-                        final text = state.pageStatus ==
-                                ProcessPageStatus.processing
-                            ? 'Data processing is in progress.'
-                            : 'All calculations has finished, you can send your results to server.';
+                        final text = switch (state.pageStatus) {
+                          ProcessPageStatus.processing =>
+                            'Data processing is in progress',
+                          ProcessPageStatus.readyToSend =>
+                            'All calculations has finished, you can send your results to the server',
+                          ProcessPageStatus.sending =>
+                            'Sending results to the server',
+                          ProcessPageStatus.success => 'Success!',
+                          _ => 'Error!',
+                        };
                         return Text(
                           text,
                           style: TextStyle(fontSize: 16),
